@@ -6,18 +6,22 @@ class Solution:
         res = []
         for i in range(len(n)-2):
             two_sum = self.twoSum(n,0-n[i],i+1)
-            if two_sum:
-                new_l = sorted([n[i]]+two_sum)
-                if new_l not in res:
-                    res.append(new_l)
+            for triplet in two_sum:
+                if triplet not in res:
+                    res.append(triplet)
         return res
     def twoSum(self,arr,x,a):
         b = len(arr)-1
+        temp_arr = []
         while a<b:
             if arr[a]+arr[b] < x:
                 a+=1
             elif arr[a]+arr[b] > x:
                 b-=1
             else:
-                return [arr[a],arr[b]]
-        return False
+                temp_arr.append([0-x,arr[a],arr[b]])
+                a+=1
+                b-=1
+        if temp_arr:
+            return temp_arr
+        return temp_arr
